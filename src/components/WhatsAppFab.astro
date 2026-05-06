@@ -1,9 +1,14 @@
 ---
 import { MessageCircle } from "lucide-astro";
+import { getContato } from "../lib/directus";
+
+const contato = await getContato();
+const telefoneFormatado = contato?.telefone?.replace(/[\s\-\(\)]/g, '');
+const whatsappUrl = `https://wa.me/${telefoneFormatado}`;
 ---
 
 <a
-  href="https://api.whatsapp.com/message/MJMV6SHR5VEJA1"
+  href={whatsappUrl}
   target="_blank"
   rel="noopener noreferrer"
   aria-label="Contactar via WhatsApp"
