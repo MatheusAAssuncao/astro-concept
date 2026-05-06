@@ -1,0 +1,26 @@
+---
+import logo from "../assets/logo.png";
+import { Instagram, ExternalLink } from "lucide-astro";
+import { getContato } from "../lib/directus";
+
+const year = new Date().getFullYear();
+const contato = await getContato();
+const instagramUrl = contato?.instagram;
+---
+
+<footer class="border-t border-border bg-[oklch(0.95_0.015_88)] py-14">
+  <div class="container-prose flex flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left">
+    <img src={logo.src} alt="Concept Estética" class="h-12 w-auto md:h-14" />
+    <div class="flex flex-wrap items-center justify-center gap-6 text-sm">
+      <a href="https://widget.treatwell.pt/estabelecimento/concept-estetica" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-foreground/80 hover:text-gold">
+        Treatwell <ExternalLink class="h-3.5 w-3.5" />
+      </a>
+      <a href={instagramUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-foreground/80 hover:text-gold">
+        <Instagram class="h-4 w-4" /> Instagram
+      </a>
+    </div>
+    <p class="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+      © {year} Concept Estética
+    </p>
+  </div>
+</footer>

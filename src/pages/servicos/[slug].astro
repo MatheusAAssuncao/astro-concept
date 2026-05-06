@@ -1,0 +1,198 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import WhatsAppFab from "../../components/WhatsAppFab.astro";
+import { getServicos, downloadImage } from "../../lib/directus";
+import { gerarSlug, getIconComponent } from "../../lib/helpers";
+import { ArrowLeft } from "lucide-astro";
+
+export async function getStaticPaths() {
+  const servicos = await getServicos();
+  
+  const servicosComDetalhe = servicos.filter(s => s.imagem && s.conteudo);
+  
+  return servicosComDetalhe.map((servico) => ({
+    params: { slug: gerarSlug(servico.titulo) },
+    props: { servico }
+  }));
+}
+
+const { servico } = Astro.props;
+
+const imagemLocal = servico.imagem 
+  ? await downloadImage(servico.imagem, `public/images/servico-${servico.id}.webp`)
+  : undefined;
+
+const Icon = getIconComponent(servico.icone);
+---
+
+<Layout 
+  title={`${servico.titulo} | Concept Estética`}
+  description={servico.descricao}
+  image={imagemLocal}
+>
+  <Header />
+  
+  <main>
+    <!-- Hero do Serviço -->
+    <section class="relative isolate overflow-hidden bg-background pt-32 pb-16">
+      <div class="container-prose">
+        <a 
+          href="/#servicos" 
+          class="inline-flex items-center gap-2 text-sm text-muted-foreground transition hover:text-gold mb-8"
+        >
+          <ArrowLeft class="h-4 w-4" />
+          Voltar
+        </a>
+        
+        <div class="flex items-center gap-4 mb-6">
+          <div class="flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/40 bg-card">
+            <Icon class="h-8 w-8 text-gold" stroke-width={1.25} />
+          </div>
+          <div>
+            <span class="gold-divider text-sm">Serviço</span>
+            <h1 class="mt-2 text-4xl text-gold sm:text-5xl lg:text-6xl">
+              {servico.titulo}
+            </h1>
+          </div>
+        </div>
+        
+        <p class="mt-6 text-xl leading-relaxed text-foreground/85 max-w-3xl">
+          {servico.descricao}
+        </p>
+      </div>
+    </section>
+
+    <!-- Conteúdo do Serviço -->
+    <section class="bg-[oklch(0.96_0.014_88)] py-20">
+      <div class="container-prose">
+        <div class="grid gap-14 md:grid-cols-2 md:gap-20 items-start">
+          <!-- Imagem -->
+          {imagemLocal && (
+            <div class="relative overflow-hidden rounded-2xl sticky top-32">
+              <img 
+                src={imagemLocal} 
+                alt={`Tratamento de ${servico.titulo} na Concept Estética`}
+                loading="eager"
+                width="800" 
+                height="800" 
+                class="h-full w-full object-cover" 
+              />
+              <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-gold/30"></div>
+            </div>
+          )}
+          
+          <!-- Conteúdo -->
+          <div class="prose prose-lg prose-gold max-w-none">
+            <div 
+              class="text-foreground/85 leading-relaxed space-y-6"
+              set:html={servico.conteudo}
+            />
+            
+            <!-- Call to Action -->
+            <div class="mt-12 rounded-2xl border border-gold/30 bg-card/60 p-8 text-center not-prose">
+              <span class="gold-divider text-sm">Agende já</span>
+              <p class="mt-4 text-2xl font-serif text-foreground">
+                Interessada(o) neste tratamento?
+              </p>
+              <p class="mt-2 text-sm text-muted-foreground">
+                Entre em contacto connosco para agendar a sua sessão
+              </p>
+              <a 
+                href="https://widget.treatwell.pt/estabelecimento/concept-estetica" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="mt-6 inline-flex items-center justify-center rounded-full bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.28em] text-primary-foreground shadow-lg transition hover:-translate-y-px hover:shadow-xl"
+              >
+                Marcar Agora
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Outros Serviços -->
+    <section class="bg-background py-20">
+      <div class="container-prose">
+        <div class="text-center mb-12">
+          <span class="gold-divider">
+            <span class="h-px w-8 bg-current"></span> 
+            Explore outros serviços 
+            <span class="h-px w-8 bg-current"></span>
+          </span>
+        </div>
+        <div class="flex justify-center">
+          <a 
+            href="/#servicos" 
+            class="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-card px-6 py-3 text-sm font-medium text-foreground transition hover:border-gold hover:bg-gold/5"
+          >
+            <ArrowLeft class="h-4 w-4" />
+            Ver todos os serviços
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+  <WhatsAppFab />
+</Layout>
+
+<style>
+  /* Estilos para o conteúdo HTML do Directus */
+  .prose-gold {
+    --tw-prose-body: oklch(0.3 0.02 60);
+    --tw-prose-headings: oklch(0.745 0.122 80);
+    --tw-prose-links: oklch(0.745 0.122 80);
+    --tw-prose-bold: oklch(0.3 0.02 60);
+  }
+  
+  .prose-gold h2 {
+    color: oklch(0.745 0.122 80);
+    font-size: 1.875rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .prose-gold h3 {
+    color: oklch(0.745 0.122 80);
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .prose-gold p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+  }
+  
+  .prose-gold ul, .prose-gold ol {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding-left: 1.625rem;
+  }
+  
+  .prose-gold li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .prose-gold strong {
+    color: oklch(0.745 0.122 80);
+    font-weight: 600;
+  }
+  
+  .prose-gold a:not(.rounded-full) {
+    color: oklch(0.745 0.122 80);
+    text-decoration: underline;
+    text-decoration-color: oklch(0.745 0.122 80 / 0.3);
+    transition: all 0.2s;
+  }
+  
+  .prose-gold a:not(.rounded-full):hover {
+    text-decoration-color: oklch(0.745 0.122 80);
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+import { getHistoria, downloadImage } from "../lib/directus";
+
+const tags = ["Estética em Algés", "Tratamentos de rosto", "Depilação a Laser", "Manicure", "Micropigmentação"];
+
+const historia = await getHistoria();
+
+const imagemLocal = historia?.imagem 
+  ? await downloadImage(historia.imagem, `public/images/historia-${historia.imagem}.webp`)
+  : undefined;
+
+const titulo = historia?.titulo;
+const conteudo = historia?.conteudo;
+---
+
+<section id="sobre" class="bg-[oklch(0.96_0.014_88)] py-28">
+  <div class="container-prose grid items-center gap-14 md:grid-cols-2">
+    <div class="relative overflow-hidden rounded-2xl">
+      {imagemLocal && (
+        <>
+          <img src={imagemLocal} alt="Interior da clínica Concept Estética em Algés" loading="lazy" width="1280" height="1280" class="h-full w-full object-cover" />
+          <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-gold/30"></div>
+        </>
+      )}
+    </div>
+    <div>
+      <span class="gold-divider">Sobre a clínica</span>
+      {titulo && (
+        <h2 class="mt-5 text-4xl text-gold sm:text-5xl">
+          {titulo}
+        </h2>
+      )}
+      {conteudo && (
+        <p class="mt-7 text-base leading-relaxed text-foreground/85">
+          {conteudo}
+        </p>
+      )}
+      <div class="mt-8 flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <span class="rounded-full border border-gold/40 bg-background px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-foreground/70">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,8 @@
+# Concept Estética - Robots.txt
+# https://conceptestetica.pt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://conceptestetica.pt/sitemap-index.xml

@@ -1,0 +1,89 @@
+---
+import { MapPin, Phone, Instagram, Facebook, Clock } from "lucide-astro";
+import { getContato } from "../lib/directus";
+
+const contato = await getContato();
+
+const telefoneFormatado = contato?.telefone?.replace(/[\s\-\(\)]/g, '');
+const telefoneDisplay = contato?.telefone;
+
+const instagramUrl = contato?.instagram;
+const facebookUrl = contato?.facebook;
+
+const horarioHtml = contato?.funcionamento?.replace(/\\n/g, '<br />').replace(/\n/g, '<br />');
+---
+
+<section id="localizacao" class="bg-background py-28">
+  <div class="container-prose">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="gold-divider"><span class="h-px w-8 bg-current"></span> Visite-nos <span class="h-px w-8 bg-current"></span></span>
+      <h2 class="mt-5 text-4xl sm:text-5xl">Localização e Contacto</h2>
+    </div>
+
+    <div class="mt-14 grid gap-10 md:grid-cols-2">
+      <div class="overflow-hidden rounded-2xl border border-border shadow-sm">
+        <iframe
+          title="Mapa Concept Estética"
+          src="https://www.google.com/maps?q=Avenida+Humberto+Melo+Pereira+9+Alg%C3%A9s&output=embed"
+          class="h-[440px] w-full"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+
+      <div class="flex flex-col justify-center space-y-8">
+        <div class="flex gap-5">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-card">
+            <MapPin class="h-5 w-5 text-gold" stroke-width={1.5} />
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-[0.28em] text-muted-foreground">Morada</p>
+            <p class="mt-1 font-serif text-xl text-foreground">Avenida Humberto Melo Pereira, 9 — Algés</p>
+          </div>
+        </div>
+        <div class="flex gap-5">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-card">
+            <Phone class="h-5 w-5 text-gold" stroke-width={1.5} />
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-[0.28em] text-muted-foreground">Telefone</p>
+            <p class="mt-1 font-serif text-xl text-foreground">
+              <a href={`tel:${telefoneFormatado}`} class="hover:text-gold">{telefoneDisplay}</a>
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-5">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-card">
+            <Instagram class="h-5 w-5 text-gold" stroke-width={1.5} />
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-[0.28em] text-muted-foreground">Instagram</p>
+            <p class="mt-1 font-serif text-xl text-foreground">
+              <a href={instagramUrl} target="_blank" rel="noopener noreferrer" class="hover:text-gold">@conceptestetica.pt</a>
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-5">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-card">
+            <Facebook class="h-5 w-5 text-gold" stroke-width={1.5} />
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-[0.28em] text-muted-foreground">Facebook</p>
+            <p class="mt-1 font-serif text-xl text-foreground">
+              <a href={facebookUrl} target="_blank" rel="noopener noreferrer" class="hover:text-gold">Concept Estética</a>
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-5">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-card">
+            <Clock class="h-5 w-5 text-gold" stroke-width={1.5} />
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-[0.28em] text-muted-foreground">Horário</p>
+            <p class="mt-1 font-serif text-xl text-foreground" set:html={horarioHtml}></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

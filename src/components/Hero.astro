@@ -1,0 +1,34 @@
+---
+import hero from "../assets/hero.jpg";
+
+const TREATWELL = "https://widget.treatwell.pt/estabelecimento/concept-estetica";
+---
+
+<section id="top" class="relative isolate overflow-hidden">
+  <div class="absolute inset-0 -z-10">
+    <img src={hero.src} alt="Interior elegante da clínica Concept Estética" width="1920" height="1280" class="h-full w-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-b from-[oklch(0.15_0.02_60/0.55)] via-[oklch(0.15_0.02_60/0.4)] to-[oklch(0.15_0.02_60/0.7)]"></div>
+  </div>
+  <div class="container-prose flex min-h-[88vh] flex-col items-center justify-center py-32 text-center">
+    <span class="gold-divider mb-6 text-[oklch(0.85_0.1_85)]">
+      <span class="h-px w-8 bg-current"></span> Algés · Portugal <span class="h-px w-8 bg-current"></span>
+    </span>
+    <h1 class="max-w-4xl text-balance text-4xl font-normal text-white sm:text-5xl md:text-6xl">
+      Clínica <span class="text-[oklch(0.85_0.1_85)]">Concept Estética</span> em Algés
+    </h1>
+    <p class="mt-6 text-lg text-white/90 font-medium">
+      Depilação Laser · Micropigmentação · Tratamentos Faciais
+    </p>
+    <p class="mt-6 max-w-2xl text-base leading-relaxed text-white/85">
+      Especialistas em estética avançada em Algés e Oeiras. Transformamos a sua auto-estima com rigor, técnica e resultados garantidos.
+    </p>
+    <a
+      href={TREATWELL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-10 inline-flex items-center justify-center rounded-full bg-gold px-8 py-4 text-xs font-medium uppercase tracking-[0.28em] text-primary-foreground shadow-lg transition hover:-translate-y-px hover:shadow-xl"
+    >
+      Marcar Avaliação
+    </a>
+  </div>
+</section>

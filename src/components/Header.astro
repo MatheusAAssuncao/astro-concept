@@ -1,0 +1,76 @@
+---
+import logo from "../assets/logo.png";
+import { Menu, X } from "lucide-astro";
+
+const TREATWELL = "https://widget.treatwell.pt/estabelecimento/concept-estetica";
+---
+
+<header class="glass sticky top-0 z-40 border-b border-border/60">
+  <div class="container-prose flex h-24 items-center justify-between md:h-28">
+    <a href="#top" class="flex items-center gap-3" data-close-menu>
+      <img src={logo.src} alt="Concept Estética" class="h-12 w-auto md:h-14" />
+    </a>
+    <nav class="hidden items-center gap-10 md:flex">
+      <a href="/#servicos" class="text-sm tracking-wide text-foreground/80 transition hover:text-gold">Serviços</a>
+      <a href="/#sobre" class="text-sm tracking-wide text-foreground/80 transition hover:text-gold">Sobre</a>
+      <a href="/#localizacao" class="text-sm tracking-wide text-foreground/80 transition hover:text-gold">Localização</a>
+    </nav>
+    <a
+      href={TREATWELL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hidden md:inline-flex items-center justify-center rounded-full bg-gold px-5 py-2.5 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-sm transition hover:opacity-90"
+    >
+      Marcar Agora
+    </a>
+    <button
+      type="button"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      data-menu-toggle
+      class="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-full text-foreground/80 hover:text-gold"
+    >
+      <Menu data-icon-open class="h-6 w-6" />
+      <X data-icon-close class="h-6 w-6 hidden" />
+    </button>
+  </div>
+
+  <div data-mobile-menu class="hidden md:hidden border-t border-border/60 bg-background/95 backdrop-blur">
+    <nav class="container-prose flex flex-col py-6 gap-5">
+      <a href="#servicos" data-close-menu class="text-base tracking-wide text-foreground/80 hover:text-gold">Serviços</a>
+      <a href="#sobre" data-close-menu class="text-base tracking-wide text-foreground/80 hover:text-gold">Sobre</a>
+      <a href="#localizacao" data-close-menu class="text-base tracking-wide text-foreground/80 hover:text-gold">Localização</a>
+      <a
+        href={TREATWELL}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-close-menu
+        class="mt-2 inline-flex items-center justify-center rounded-full bg-gold px-5 py-3 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground"
+      >
+        Marcar Agora
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
+  const iconOpen = document.querySelector<HTMLElement>("[data-icon-open]");
+  const iconClose = document.querySelector<HTMLElement>("[data-icon-close]");
+  const closers = document.querySelectorAll<HTMLElement>("[data-close-menu]");
+
+  function setOpen(open: boolean) {
+    if (!menu || !toggle || !iconOpen || !iconClose) return;
+    menu.classList.toggle("hidden", !open);
+    iconOpen.classList.toggle("hidden", open);
+    iconClose.classList.toggle("hidden", !open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+  }
+
+  toggle?.addEventListener("click", () => {
+    setOpen(menu?.classList.contains("hidden") ?? false);
+  });
+  closers.forEach((el) => el.addEventListener("click", () => setOpen(false)));
+</script>
