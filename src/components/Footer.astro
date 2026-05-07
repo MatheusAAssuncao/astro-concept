@@ -1,6 +1,6 @@
 ---
 import logo from "../assets/logo.png";
-import { Instagram, ExternalLink } from "lucide-astro";
+import { Instagram, ExternalLink, Star } from "lucide-astro";
 import { getContato } from "../lib/directus";
 
 const year = new Date().getFullYear();
@@ -17,6 +17,9 @@ const instagramUrl = contato?.instagram;
       </a>
       <a href={instagramUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-foreground/80 hover:text-gold">
         <Instagram class="h-4 w-4" /> Instagram
+      </a>
+      <a href="https://g.page/r/Ca-p0IedgHplEAE/review" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-foreground/80 hover:text-gold">
+        <Star class="h-4 w-4" /> Avaliações Google
       </a>
     </div>
     <p class="text-xs uppercase tracking-[0.25em] text-muted-foreground">

@@ -1,5 +1,5 @@
 ---
-import { MapPin, Phone, Instagram, Facebook, Clock } from "lucide-astro";
+import { MapPin, Phone, Instagram, Facebook, Clock, Star } from "lucide-astro";
 import { getContato } from "../lib/directus";
 
 const contato = await getContato();
@@ -71,6 +71,17 @@ const horarioHtml = contato?.funcionamento?.replace(/\\n/g, '<br />').replace(/\
             <p class="text-xs uppercase tracking-[0.28em] text-muted-foreground">Facebook</p>
             <p class="mt-1 font-serif text-xl text-foreground">
               <a href={facebookUrl} target="_blank" rel="noopener noreferrer" class="hover:text-gold">Concept Estética</a>
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-5">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-card">
+            <Star class="h-5 w-5 text-gold" stroke-width={1.5} />
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-[0.28em] text-muted-foreground">Avaliações</p>
+            <p class="mt-1 font-serif text-xl text-foreground">
+              <a href="https://g.page/r/Ca-p0IedgHplEAE/review" target="_blank" rel="noopener noreferrer" class="hover:text-gold">Avalie-nos no Google</a>
             </p>
           </div>
         </div>
