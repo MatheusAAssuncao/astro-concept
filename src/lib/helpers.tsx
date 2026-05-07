@@ -59,3 +59,27 @@ export function gerarSlug(titulo: string): string {
     .replace(/[\s_-]+/g, '-') // Substitui espaços por hífens
     .replace(/^-+|-+$/g, ''); // Remove hífens no início/fim
 }
+
+/**
+ * Processa conteúdo HTML convertendo quebras de linha em parágrafos
+ * Se o conteúdo já tem tags <p>, mantém como está
+ * Se não, converte \n em tags <p>
+ * @param texto - Conteúdo a ser processado
+ * @returns HTML formatado
+ */
+export function processarConteudoHTML(texto: string): string {
+  // Se já tem tags <p>, retorna como está
+  if (texto.includes('<p>') || texto.includes('<p ')) {
+    return texto;
+  }
+  
+  // Converte quebras de linha em parágrafos
+  const paragrafos = texto
+    .split('\n')
+    .map(p => p.trim())
+    .filter(p => p.length > 0)
+    .map(p => `<p style="font-size: 1.2rem; line-height: 1.4; margin-bottom: 1.5rem;">${p}</p>`)
+    .join('\n');
+  
+  return paragrafos;
+}

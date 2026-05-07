@@ -4,7 +4,7 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import WhatsAppFab from "../../components/WhatsAppFab.astro";
 import { getServicos, downloadImage } from "../../lib/directus";
-import { gerarSlug, getIconComponent } from "../../lib/helpers";
+import { gerarSlug, getIconComponent, processarConteudoHTML } from "../../lib/helpers";
 import { ArrowLeft } from "lucide-astro";
 
 export async function getStaticPaths() {
@@ -87,7 +87,7 @@ const Icon = getIconComponent(servico.icone);
           <div class="prose prose-lg prose-gold max-w-none">
             <div 
               class="text-foreground/85 leading-relaxed space-y-6"
-              set:html={servico.conteudo}
+              set:html={processarConteudoHTML(servico.conteudo || "")}
             />
             
             <!-- Call to Action -->
