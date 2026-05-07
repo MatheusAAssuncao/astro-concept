@@ -1,7 +1,7 @@
 ---
 import { getHistoria, downloadImage } from "../lib/directus";
 
-const tags = ["Estética em Algés", "Tratamentos de rosto", "Depilação a Laser", "Manicure", "Micropigmentação"];
+const tags = ["Estética em Lisboa", "Tratamentos de rosto", "Depilação a Laser", "Manicure", "Micropigmentação"];
 
 const historia = await getHistoria();
 
@@ -18,7 +18,7 @@ const conteudo = historia?.conteudo;
     <div class="relative overflow-hidden rounded-2xl">
       {imagemLocal && (
         <>
-          <img src={imagemLocal} alt="Interior da clínica Concept Estética em Algés" loading="lazy" width="1280" height="1280" class="h-full w-full object-cover" />
+          <img src={imagemLocal} alt="Interior da clínica Concept Estética em Lisboa" loading="lazy" width="1280" height="1280" class="h-full w-full object-cover" />
           <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-gold/30"></div>
         </>
       )}
