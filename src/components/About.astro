@@ -32,9 +32,7 @@ const conteudo = processarConteudoHTMLRaw(historia?.conteudo || "");
         </h2>
       )}
       {conteudo && (
-        <p class="mt-7 text-base leading-relaxed text-foreground/85">
-          {conteudo}
-        </p>
+        <p class="mt-7 text-base leading-relaxed text-foreground/85" set:html={conteudo}></p>
       )}
       <div class="mt-8 flex flex-wrap gap-2">
         {tags.map((tag) => (

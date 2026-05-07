@@ -95,7 +95,7 @@ export function processarConteudoHTMLRaw(texto: string): string {
     .split('\n')
     .map(p => p.trim())
     .filter(p => p.length > 0)
-    .map(p => `<br>${p}`)
+    .map(p => `${p}<br>`)
     .join('\n');
   
   return paragrafos;
