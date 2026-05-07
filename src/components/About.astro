@@ -1,5 +1,6 @@
 ---
 import { getHistoria, downloadImage } from "../lib/directus";
+import { processarConteudoHTML } from "../lib/helpers";
 
 const tags = ["Estética em Lisboa", "Tratamentos de rosto", "Depilação a Laser", "Manicure", "Micropigmentação"];
 
@@ -10,7 +11,7 @@ const imagemLocal = historia?.imagem
   : undefined;
 
 const titulo = historia?.titulo;
-const conteudo = historia?.conteudo;
+const conteudo = processarConteudoHTML(historia?.conteudo || "");
 ---
 
 <section id="sobre" class="bg-[oklch(0.96_0.014_88)] py-28">
