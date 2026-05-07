@@ -68,12 +68,10 @@ export function gerarSlug(titulo: string): string {
  * @returns HTML formatado
  */
 export function processarConteudoHTML(texto: string): string {
-  // Se já tem tags <p>, retorna como está
   if (texto.includes('<p>') || texto.includes('<p ')) {
     return texto;
   }
   
-  // Converte quebras de linha em parágrafos
   const paragrafos = texto
     .split('\n')
     .map(p => p.trim())
@@ -85,17 +83,15 @@ export function processarConteudoHTML(texto: string): string {
 }
 
 export function processarConteudoHTMLRaw(texto: string): string {
-  // Se já tem tags <p>, retorna como está
   if (texto.includes('<p>') || texto.includes('<p ')) {
     return texto;
   }
   
-  // Converte quebras de linha em parágrafos
   const paragrafos = texto
     .split('\n')
     .map(p => p.trim())
     .filter(p => p.length > 0)
-    .map(p => `${p}<br>`)
+    .map(p => `<p>${p}</p>`)
     .join('\n');
   
   return paragrafos;
