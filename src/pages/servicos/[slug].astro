@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 const { servico } = Astro.props;
 
 const imagemLocal = servico.imagem 
-  ? await downloadImage(servico.imagem, `public/images/servico-${servico.id}.webp`)
+  ? await downloadImage(servico.imagem, `public/images/servico-${servico.id}-${Date.now()}.webp`)
   : undefined;
 
 const Icon = getIconComponent(servico.icone);

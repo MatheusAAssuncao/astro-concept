@@ -7,7 +7,7 @@ const tags = ["Estética em Lisboa", "Tratamentos de rosto", "Depilação a Lase
 const historia = await getHistoria();
 
 const imagemLocal = historia?.imagem 
-  ? await downloadImage(historia.imagem, `public/images/historia-${historia.imagem}.webp`)
+  ? await downloadImage(historia.imagem, `public/images/historia-${historia.imagem}-${Date.now()}.webp`)
   : undefined;
 
 const titulo = historia?.titulo;
